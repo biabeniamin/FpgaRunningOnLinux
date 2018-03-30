@@ -6,3 +6,5 @@
 #include "DataTypes.h"
 
 PDWORD MapPhysicalMemory(DWORD PhysAddress);
+
+void Dump(PDWORD Address);
