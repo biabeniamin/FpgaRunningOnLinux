@@ -11,6 +11,9 @@ void initTemperatureXadc()
 double GetTemperature()
 {
 	DWORD dwVoltage;
+	double temperature;
+
+	temperature = 0;
 
 	if (0 == _temperatureXadcAddress)
 	{
@@ -19,7 +22,12 @@ double GetTemperature()
 	
 	dwVoltage = _temperatureXadcAddress[1];
 
-	return dwVoltage;
+	temperature = (dwVoltage * 0.7) / 21856;
+
+	//reduce gain
+	temperature *= 100 / 3.4;
+
+	return temperature;
 
 }
 

@@ -16,27 +16,15 @@ int main()
 
 	InitKeyboard();
 
-	GetPixelsDelta(0x2e100000, 
+	/*GetPixelsDelta(0x2e100000, 
 		0x2e200000,
-		100);
-
-	
-
-	
-
-
-
-
-
-	
-	
-
-	return 0;
+		100);*/
 
 	while (1)
 	{
 		CheckKeyboardNewKeyPressed();
 		CheckWebServer();
+		WriteTemperatureToWebServer(GetTemperature());
 		printf("Temperature is %f \n", GetTemperature());
 
 		if (GRANTED_PIN == (GetKeyboardPin() & 0xFFFF))

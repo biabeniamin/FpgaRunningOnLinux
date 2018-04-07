@@ -2,3 +2,5 @@
 #include <stdlib.h>
 
 void CheckWebServer();
+
+void WriteTemperatureToWebServer();
