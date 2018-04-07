@@ -51,5 +51,7 @@ void DmaStart(PDMA Dma,
 	Dma->DmaMappedAddress[0] = 0x10003;
 
 	//writing buffer length
+	printf("Buffer size %x \n", &Dma->DmaMappedAddress[10]);
 	Dma->DmaMappedAddress[10] = DataSize;
+	printf("Buffer size cont%x \n", Dma->DmaMappedAddress[10]);
 }
