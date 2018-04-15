@@ -1,8 +1,10 @@
 #include "WebServer.h"
-#include "Relay.h"
+#include "Light.h"
 
 FILE * _relayFile;
 FILE * _temperatureFile;
+
+Light _light;
 
 void openFile()
 {
@@ -20,16 +22,15 @@ void CheckWebServer()
 	int te;
 	fscanf(_relayFile, "%d", &te);
 	fseek(_relayFile, 0, SEEK_SET);
-	printf("%d \n", te);
 
 	if (1 == te)
 	{
-		TurnOnLight();
+		_light.TurnOn();
 	}
 
 	if (0 == te)
 	{
-		TurnOffLight();
+		_light.TurnOff();
 	}
 }
 

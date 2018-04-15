@@ -3,4 +3,4 @@
 
 void CheckWebServer();
 
-void WriteTemperatureToWebServer();
+void WriteTemperatureToWebServer(double Temperature);

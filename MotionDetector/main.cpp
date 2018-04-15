@@ -75,6 +75,15 @@ else if((1 ==motionDetected) && (0x9FF > changes))
 	text[26] += index / 10;
 	imwrite(text, image);
 	printf("text %s\n ", text);
+
+
+	FILE *ff = fopen("process", "w");
+	fprintf(ff, "1");
+	fclose(ff);
+
+	FILE *ff2 = fopen("toProcess", "w");
+	fprintf(ff2, "%s", text);
+	fclose(ff2);
 	index++;
 
 	motionDetected = 0;

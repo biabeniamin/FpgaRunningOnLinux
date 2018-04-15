@@ -1,8 +1,21 @@
+#ifndef RELAY_H
+#define RELAY_H
+
+#include "DataTypes.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-#define RELAY_GPIO_ADDRESS 0x41240000
+class Relay
+{
 
-void TurnOnLight();
+public:
 
-void TurnOffLight();
+	Relay(DWORD GpioAddress);
+
+	void WriteValue(DWORD value);
+
+	DWORD GetValue();
+
+};
+
+#endif // !RELAY_H

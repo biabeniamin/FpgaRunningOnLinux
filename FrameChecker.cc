@@ -14,7 +14,6 @@ void initFrameChecker()
 	_dmaCurrent = DmaInit(DMA_CURRENT);
 	_dmaLast = DmaInit(DMA_LAST);
 	_adder = MapPhysicalMemory(ADDER);
-	printf("%x %x %x \n", _dmaCurrent.DmaMappedAddress, _dmaLast.DmaMappedAddress, _adder);
 }
 
 DWORD GetPixelsDelta(DWORD CurrentFrame,
@@ -25,37 +24,13 @@ DWORD GetPixelsDelta(DWORD CurrentFrame,
 	{
 		initFrameChecker();
 	}
-//	printf("Resetting\n");
-
 	DmaReset(&_dmaCurrent);
 	DmaReset(&_dmaLast);
 
-//	printf("Start adder\n");
 	_adder[0] = 0x1;
 	//adder[8] = 18;
 
-	//Dump(_adder);
-	/*
-	
-	PDWORD dmaMem = MapPhysicalMemory(CurrentFrame);
-	PDWORD dmaMem2 = MapPhysicalMemory(LastFrame);
-	Dump(dmaMem);
-	Dump(dmaMem2);
-	for (int i = 0; i < 1000; i++)
-	{
-	dmaMem[i] = dmaMem2[i];
-	}
 
-	Dump(dmaMem);
-	Dump(dmaMem2);*/
-	//dmaMem[0] = 0;
-
-//	Dump(_dmaCurrent.DmaMappedAddress);
-
-
-//	Dump(_dmaLast.DmaMappedAddress);
-
-//	printf("Setting dma\n");
 
 	DmaTransfer(&_dmaCurrent,
 		CurrentFrame);
@@ -68,11 +43,5 @@ DWORD GetPixelsDelta(DWORD CurrentFrame,
 	DmaStart(&_dmaCurrent,
 		FrameSize);
 
-//	Dump(_dmaCurrent.DmaMappedAddress);
-//	Dump(_dmaLast.DmaMappedAddress);
-	//printf("Dump adder! \n");
 	return _adder[0xC];
-	Dump(_adder);
-	
-	return 0;
 }
