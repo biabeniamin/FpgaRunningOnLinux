@@ -24,7 +24,7 @@ int main()
 	{
 		_camera.Check();
 		CheckKeyboardNewKeyPressed();
-		CheckWebServer();
+		//CheckWebServer();
 		WriteTemperatureToWebServer(GetTemperature());
 		//printf("Temperature is %f \n", GetTemperature());
 
