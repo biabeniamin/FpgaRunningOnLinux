@@ -23,6 +23,8 @@ int main()
 	while (1)
 	{
 		_camera.Check();
+		//return 0;
+
 		CheckKeyboardNewKeyPressed();
 		//CheckWebServer();
 		WriteTemperatureToWebServer(GetTemperature());
@@ -39,7 +41,7 @@ int main()
 		}
 		//usleep(500 * 1000);
 	}
-
+	
 	for (int i = 0; i < 10; i++)
 	{
 		

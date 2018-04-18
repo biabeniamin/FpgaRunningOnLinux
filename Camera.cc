@@ -42,9 +42,9 @@ Camera::Camera()
 	_currentFrameMapped = MapPhysicalMemory(_currentFramePhysAddress);
 	_lastFrameMapped = MapPhysicalMemory(_lastFramePhysAddress);
 
-	_facialRecognitionResult = fopen("result", "rw");
-	_facialRecognitionProcess = fopen("process", "w");
-	_facialRecognitionDone = fopen("facialDone", "r");
+	_facialRecognitionResult = fopen("result", "w+");
+	_facialRecognitionProcess = fopen("process", "r+");
+	_facialRecognitionDone = fopen("facialDone", "w+");
 }
 
 void Camera::GetAllocatedAddress()
@@ -66,16 +66,20 @@ void Camera::Check()
 	Mat image;
 
 	_capture >> image;
+	//image = imread("../tmp2/face.jpg");
 
-	memcpy(_lastFrameMapped, _currentFrameMapped, 1000);
-	memcpy(_currentFrameMapped, image.data, 1000);
+	
 
-	DWORD changes = GetPixelsDelta(_currentFramePhysAddress, _lastFramePhysAddress, 500);
-	if (0x9FF < changes)
+	memcpy(_lastFrameMapped, _currentFrameMapped, 2000);
+	memcpy(_currentFrameMapped, image.data, 2000);
+
+	DWORD changes = GetPixelsDelta(_currentFramePhysAddress, _lastFramePhysAddress, 2000);
+
+	if (0xB000 < changes)
 	{
 		motionDetected = 1;
 	}
-	else if ((1 == motionDetected) && (0x9FF > changes))
+	else if ((1 == motionDetected) && (0xA000 > changes))
 	{
 		printf("pixels changed[%x] %x \n", _index, changes);
 		char text[] = "/var/www/html/motion/biden00.jpg";
@@ -84,38 +88,64 @@ void Camera::Check()
 		imwrite(text, image);
 		printf("text %s\n ", text);
 
-		fseek(_facialRecognitionProcess, 0, SEEK_SET);
-		fprintf(_facialRecognitionProcess, "1");
+		
+		
 
 		fseek(_facialRecognitionResult, 0, SEEK_SET);
 		fprintf(_facialRecognitionResult, "0");
+		fflush(_facialRecognitionResult);
 
 		FILE *ff2 = fopen("toProcess", "w");
 		fprintf(ff2, "%s", text);
 		fclose(ff2);
 
+		fseek(_facialRecognitionDone, 0, SEEK_SET);
+		fprintf(_facialRecognitionDone, "0");
+		fflush(_facialRecognitionDone);
+
+		fseek(_facialRecognitionProcess, 0, SEEK_SET);
+		fprintf(_facialRecognitionProcess, "1");
+		fflush(_facialRecognitionProcess);
+
+		printf("facial started \n");
+
+		
 		BYTE hasDone = 0;
+		DWORD itterations = 0;
 		do
 		{
 			fseek(_facialRecognitionDone, 0, SEEK_SET);
 			fscanf(_facialRecognitionDone, "%d", &hasDone);
-			printf("wainting fac to done %x \n", hasDone);
+			//printf("wainting fac to done %x \n", hasDone);
+			itterations++;
+
+			if (2000 < itterations)
+			{
+				printf("Timeout!\n");
+				return;
+			}
+			usleep(1 * 1000);
 		} while (0 == hasDone);
 
-		fseek(_facialRecognitionProcess, 0, SEEK_SET);
-		fprintf(_facialRecognitionProcess, "0");
+		printf("Done!\n");
 
+		
+		//fseek(_facialRecognitionProcess, 0, SEEK_SET);
+		//fprintf(_facialRecognitionProcess, "0");
+		
 		fseek(_facialRecognitionResult, 0, SEEK_SET);
 		fscanf(_facialRecognitionResult, "%d", &hasDone);
 		printf("Facial recognition result %d\n", hasDone);
 		if (1 == hasDone)
 		{
 			_light2.TurnOn();
+			usleep(1000 * 1000);
+			_light2.TurnOff();
 			
 		}
 		else
 			_light2.TurnOff();
-
+			
 		_index++;
 
 		motionDetected = 0;
