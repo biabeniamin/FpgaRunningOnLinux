@@ -4,7 +4,8 @@
 #include "opencv2/imgproc.hpp"
 #include <iostream>
 #include "DataTypes.h"
-#include "Light.h"
+#include "Door.h"
+#include "Notifications.h"
 #include "FrameChecker.h"
 
 using namespace std;
@@ -25,7 +26,6 @@ FILE *_facialRecognitionResult;
 FILE *_facialRecognitionProcess;
 FILE *_facialRecognitionDone;
 
-Light _light2;
 
 Camera::Camera()
 {
@@ -87,6 +87,7 @@ void Camera::Check()
 		text[26] += _index / 10;
 		imwrite(text, image);
 		printf("text %s\n ", text);
+		_index++;
 
 		
 		
@@ -138,15 +139,11 @@ void Camera::Check()
 		printf("Facial recognition result %d\n", hasDone);
 		if (1 == hasDone)
 		{
-			_light2.TurnOn();
-			usleep(1000 * 1000);
-			_light2.TurnOff();
-			
+			Door::GetInstance()->Unlock();
+			Notifications::GetInstance()->SendNotification(1);
 		}
 		else
-			_light2.TurnOff();
 			
-		_index++;
 
 		motionDetected = 0;
 

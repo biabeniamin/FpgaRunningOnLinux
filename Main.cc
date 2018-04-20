@@ -5,6 +5,8 @@
 #include "Temperature.h"
 #include "Camera.h"
 #include "Memory.h"
+#include "Door.h"
+#include "Notifications.h"
 
 #define GRANTED_PIN 0x123A
 
@@ -16,23 +18,24 @@ int main()
 
 	InitKeyboard();
 
-	/*GetPixelsDelta(0x2e100000, 
-		0x2e200000,
-		100);*/
 
 	while (1)
 	{
 		_camera.Check();
 		//return 0;
-
 		CheckKeyboardNewKeyPressed();
-		//CheckWebServer();
+		CheckWebServer();
 		WriteTemperatureToWebServer(GetTemperature());
 		//printf("Temperature is %f \n", GetTemperature());
 
 		if (GRANTED_PIN == (GetKeyboardPin() & 0xFFFF))
 		{
+			Door::GetInstance()->Unlock();
 			printf("Can enter \n");
+		}
+		else if (0xD == (GetKeyboardPin() & 0xF))
+		{
+			printf("Done\n");
 			return 0;
 		}
 		else
@@ -40,6 +43,8 @@ int main()
 			//printf("%x \n", GetKeyboardPin());
 		}
 		//usleep(500 * 1000);
+
+		//return 0;
 	}
 	
 	for (int i = 0; i < 10; i++)

@@ -17,6 +17,8 @@ public:
 
 	void TurnOff();
 
+	void Switch();
+
 };
 
 #endif // !LIGHT_H
