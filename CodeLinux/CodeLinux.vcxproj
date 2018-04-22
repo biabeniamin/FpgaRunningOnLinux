@@ -125,6 +125,7 @@
     <ClCompile Include="..\Light.cc" />
     <ClCompile Include="..\Main.cc" />
     <ClCompile Include="..\Memory.cc" />
+    <ClCompile Include="..\Notifications.cpp" />
     <ClCompile Include="..\Relay.cc" />
     <ClCompile Include="..\Temperature.cc" />
     <ClCompile Include="..\WebServer.cc" />
@@ -139,6 +140,7 @@
     <ClInclude Include="..\Keyboard.h" />
     <ClInclude Include="..\Light.h" />
     <ClInclude Include="..\Memory.h" />
+    <ClInclude Include="..\Notifications.h" />
     <ClInclude Include="..\Relay.h" />
     <ClInclude Include="..\Temperature.h" />
     <ClInclude Include="..\WebServer.h" />

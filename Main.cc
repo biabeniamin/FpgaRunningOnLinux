@@ -18,7 +18,6 @@ int main()
 
 	InitKeyboard();
 
-
 	while (1)
 	{
 		_camera.Check();

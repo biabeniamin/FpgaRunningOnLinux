@@ -139,10 +139,10 @@ void Camera::Check()
 		printf("Facial recognition result %d\n", hasDone);
 		if (1 == hasDone)
 		{
+			Notifications::GetInstance()->SendNotification(6);
 			Door::GetInstance()->Unlock();
-			Notifications::GetInstance()->SendNotification(1);
+			
 		}
-		else
 			
 
 		motionDetected = 0;
