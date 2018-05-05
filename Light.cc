@@ -1,5 +1,6 @@
 #include "Light.h"
 #include "Memory.h"
+#include "Log.h"
 #include <stdio.h>
 
 //PDWORD _relayGpioAddress = 0;
@@ -7,19 +8,21 @@
 #define PIN_INDEX 3
 
 Light::Light()
-	: Relay(RELAY_GPIO_ADDRESS, 3)
+	: Relay(RELAY_GPIO_ADDRESS, 2)
 {
 	
 }
 
 void Light::TurnOn()
 {
-	WriteValue(1);
+	//Log::GetInstance()->WriteLog("The light was turned on");
+	WriteValue(0);
 }
 
 void Light::TurnOff()
 {
-	WriteValue(0);
+	//Log::GetInstance()->WriteLog("The light was turned off");
+	WriteValue(1);
 }
 void Light::Switch()
 {

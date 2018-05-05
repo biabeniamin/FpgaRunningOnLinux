@@ -17,6 +17,7 @@ int main()
 {
 
 	InitKeyboard();
+	printf("App started! \n");
 
 	while (1)
 	{

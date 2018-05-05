@@ -123,6 +123,7 @@
     <ClCompile Include="..\FrameChecker.cc" />
     <ClCompile Include="..\Keyboard.cc" />
     <ClCompile Include="..\Light.cc" />
+    <ClCompile Include="..\Log.cpp" />
     <ClCompile Include="..\Main.cc" />
     <ClCompile Include="..\Memory.cc" />
     <ClCompile Include="..\Notifications.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="..\FrameChecker.h" />
     <ClInclude Include="..\Keyboard.h" />
     <ClInclude Include="..\Light.h" />
+    <ClInclude Include="..\Log.h" />
     <ClInclude Include="..\Memory.h" />
     <ClInclude Include="..\Notifications.h" />
     <ClInclude Include="..\Relay.h" />

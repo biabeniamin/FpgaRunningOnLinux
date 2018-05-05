@@ -6,6 +6,7 @@ class Door :
 private:
 	Door();
 	static Door *_instance;
+
 public:
 	static Door* GetInstance();
 	

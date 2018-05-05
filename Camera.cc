@@ -123,7 +123,7 @@ void Camera::Check()
 			if (2000 < itterations)
 			{
 				printf("Timeout!\n");
-				return;
+				goto frameCompleted;
 			}
 			usleep(1 * 1000);
 		} while (0 == hasDone);
@@ -143,6 +143,8 @@ void Camera::Check()
 			Door::GetInstance()->Unlock();
 			
 		}
+
+		frameCompleted:
 			
 
 		motionDetected = 0;

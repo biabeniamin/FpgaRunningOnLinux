@@ -1,4 +1,5 @@
 #include "Door.h"
+#include "Log.h"
 #include <unistd.h>
 
 Door* Door::_instance = 0;
@@ -14,19 +15,20 @@ Door* Door::GetInstance()
 }
 
 Door::Door()
-	: Relay(RELAY_GPIO_ADDRESS, 2)
+	: Relay(RELAY_GPIO_ADDRESS, 3)
 {
 }
 
 void Door::Unlock()
 {
-	WriteValue(1);
-	usleep(1000 * 1000);
 	WriteValue(0);
 	usleep(1000 * 1000);
+	WriteValue(1);
+	usleep(1000 * 1000);
+	Log::GetInstance()->WriteLog("The door was unlocked");
 }
 
 void Door::Lock()
 {
-
+	WriteValue(0);
 }
