@@ -9,3 +9,5 @@ DWORD GetKeyboardPin();
 
 void CheckKeyboardNewKeyPressed();
 
+void ResetKeyboard();
+

@@ -22,10 +22,11 @@ Door::Door()
 void Door::Unlock()
 {
 	WriteValue(0);
+	Log::GetInstance()->WriteLog("The door was unlocked");
 	usleep(1000 * 1000);
 	WriteValue(1);
 	usleep(1000 * 1000);
-	Log::GetInstance()->WriteLog("The door was unlocked");
+	Log::GetInstance()->WriteLog("The door was locked");
 }
 
 void Door::Lock()

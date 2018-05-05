@@ -29,3 +29,8 @@ void CheckKeyboardNewKeyPressed()
 	}
 }
 
+void ResetKeyboard()
+{
+	_pin = 0xFFFFFFFF;
+}
+

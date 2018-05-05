@@ -31,6 +31,7 @@ int main()
 		if (GRANTED_PIN == (GetKeyboardPin() & 0xFFFF))
 		{
 			Door::GetInstance()->Unlock();
+			ResetKeyboard();
 			printf("Can enter \n");
 		}
 		else if (0xD == (GetKeyboardPin() & 0xF))

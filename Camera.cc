@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "Log.h"
 #include "opencv2/objdetect.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
@@ -141,6 +142,7 @@ void Camera::Check()
 		{
 			Notifications::GetInstance()->SendNotification(6);
 			Door::GetInstance()->Unlock();
+			Log::GetInstance()->WriteLog("Ben face was detected");
 			
 		}
 
